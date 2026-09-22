@@ -7,7 +7,9 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const evidencePath = process.env.EVIDENCE_FILE
   ? path.resolve(process.env.EVIDENCE_FILE)
   : path.join(root, 'evidence', 'live', 'responses.json');
-const outputPath = path.join(root, 'evidence', 'live', 'consumer-contract-report.json');
+const outputPath = process.env.OUTPUT_FILE
+  ? path.resolve(process.env.OUTPUT_FILE)
+  : path.join(root, 'evidence', 'live', 'consumer-contract-report.json');
 const evidence = JSON.parse(fs.readFileSync(evidencePath, 'utf8'));
 const required = ['is_acceptor', 'is_one_way', 'pending_tlcs', 'failure_detail'];
 const channels = [

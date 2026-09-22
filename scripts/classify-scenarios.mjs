@@ -31,6 +31,8 @@ const report = {
   sdk_finding: 'SDK_CONTRACT_GAP',
   version_regression_claimed: false
 };
-const outputPath = path.join(root, 'evidence', 'live', 'scenario-matrix.json');
+const outputPath = process.env.OUTPUT_FILE
+  ? path.resolve(process.env.OUTPUT_FILE)
+  : path.join(root, 'evidence', 'live', 'scenario-matrix.json');
 fs.writeFileSync(outputPath, `${JSON.stringify(report, null, 2)}\n`);
 console.log(JSON.stringify({ scenarios: report.scenarios.length, output: outputPath }, null, 2));
