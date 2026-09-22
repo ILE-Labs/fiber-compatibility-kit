@@ -1,0 +1,4 @@
+# Raw local captures may contain local RPC URLs, invoice addresses, payment
+# hashes, and node identifiers. Publish only sanitized evidence.
+evidence/live/responses.json
+evidence/live/payment-scenario.json

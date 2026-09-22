@@ -1,0 +1,26 @@
+name: compatibility-kit-ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  reproducible-evidence:
+    runs-on: ubuntu-latest
+    env:
+      EVIDENCE_FILE: evidence/live/responses.public.json
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run validate:consumer
+      - run: npm run classify:scenarios
+      - name: Verify generated evidence is committed and honest
+        run: |
+          node -e "const fs=require('fs'); const r=JSON.parse(fs.readFileSync('evidence/live/report.json')); if (r.version_difference_detected || r.version_regression_claimed) process.exit(1); if (!r.sdk_contract_gap_detected) process.exit(1);"
+          node -e "const r=require('./evidence/live/scenario-matrix.json'); if (r.version_regression_claimed) process.exit(1); if (r.scenarios.length < 2) process.exit(1);"
+          node -e "const r=require('./evidence/live/consumer-contract-report.json'); if (r.result !== 'CONSUMER_CONTRACT_SUPPORTED') process.exit(1);"

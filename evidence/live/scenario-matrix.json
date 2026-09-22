@@ -1,0 +1,24 @@
+{
+  "schema": "fiber-scenario-matrix/v1",
+  "evidence_status": "live_rpc_capture",
+  "scenarios": [
+    {
+      "scenario": "node_info",
+      "before_version": "0.9.0",
+      "after_version": "0.9.1",
+      "shape_comparison": "SAME_TOP_LEVEL_SHAPE",
+      "verdict": "VERSION_COMPATIBLE",
+      "limitation": "This classifies the observed JSON shape only; it does not prove semantic compatibility."
+    },
+    {
+      "scenario": "list_channels_pending",
+      "before_version": "0.9.0",
+      "after_version": "0.9.1",
+      "shape_comparison": "SAME_TOP_LEVEL_SHAPE",
+      "verdict": "VERSION_COMPATIBLE",
+      "limitation": "This classifies the observed JSON shape only; it does not prove semantic compatibility."
+    }
+  ],
+  "sdk_finding": "SDK_CONTRACT_GAP",
+  "version_regression_claimed": false
+}

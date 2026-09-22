@@ -1,0 +1,108 @@
+{
+  "schema": "fiber-live-scenario/v1",
+  "captured_at": "2026-09-22T00:31:01.709Z",
+  "evidence_status": "live_rpc_capture",
+  "scenario": "invoice_creation_and_cross_node_payment_attempt",
+  "versions": {
+    "old": "0.9.0",
+    "current": "0.9.1"
+  },
+  "observations": {
+    "invoice_creation": "SUCCEEDED_ON_BOTH_VERSIONS",
+    "payment_attempt": "FAILED_SAME_ROUTE_CLASS_ON_BOTH_VERSIONS",
+    "version_regression_claimed": false
+  },
+  "limitations": [
+    "The nodes had zero outbound liquidity, so this is a real negative-path payment test, not a successful settlement.",
+    "Matching error classes do not prove all payment semantics are identical.",
+    "Invoice addresses and payment hashes are local test evidence and must be redacted before public publication."
+  ],
+  "captures": {
+    "old": {
+      "label": "old",
+      "version": "0.9.0",
+      "url": "<local-rpc-redacted>",
+      "node_info": {
+        "version": "0.9.0",
+        "commit_hash": " "
+      },
+      "new_invoice": {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "result": {
+          "invoice": {
+            "currency": "Fibd",
+            "amount": "0x1",
+            "attrs": [
+              {
+                "description": "fiber-compatibility-kit live validation"
+              },
+              {
+                "expiry_time": "0x64"
+              },
+              {
+                "final_htlc_minimum_expiry_delta": "0x535"
+              },
+              {
+                "hash_algorithm": "sha256"
+              },
+              {
+                "payee_public_key": "03032b99943822e721a651c5a5b9621043017daa9dc3ec81d83215fd2e25121187"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "current": {
+      "label": "current",
+      "version": "0.9.1",
+      "url": "<local-rpc-redacted>",
+      "node_info": {
+        "version": "0.9.1",
+        "commit_hash": "8a0fc56-dirty 2026-09-07"
+      },
+      "new_invoice": {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "result": {
+          "invoice": {
+            "currency": "Fibd",
+            "amount": "0x1",
+            "attrs": [
+              {
+                "description": "fiber-compatibility-kit live validation"
+              },
+              {
+                "expiry_time": "0x64"
+              },
+              {
+                "final_htlc_minimum_expiry_delta": "0x535"
+              },
+              {
+                "hash_algorithm": "sha256"
+              },
+              {
+                "payee_public_key": "02a64b8993f33b2ebd37a4de1c9441f491291a4e779da8e519bcfb7c1f3f56c9c0"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "cross_payments": [
+      {
+        "payer": "old",
+        "payee": "current",
+        "error_code": -32000,
+        "error_class": "Send payment error: Failed to build route, Insufficient balance"
+      },
+      {
+        "payer": "current",
+        "payee": "old",
+        "error_code": -32000,
+        "error_class": "Send payment error: Failed to build route, Insufficient balance"
+      }
+    ]
+  }
+}

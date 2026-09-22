@@ -1,0 +1,17 @@
+{
+  "name": "fiber-compatibility-kit",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "compatibility-kit": "src/cli.mjs"
+  },
+  "scripts": {
+    "test": "node --test",
+    "compare": "node src/compare.mjs",
+    "validate:consumer": "node scripts/validate-consumer-contract.mjs",
+    "classify:scenarios": "node scripts/classify-scenarios.mjs",
+    "capture:payment": "node scripts/capture-payment-scenario.mjs",
+    "sanitize:payment": "node scripts/sanitize-payment-evidence.mjs",
+    "demo": "node src/cli.mjs inspect evidence/live/responses.public.json"
+  }
+}

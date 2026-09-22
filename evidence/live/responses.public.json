@@ -1,0 +1,30 @@
+{
+  "endpoints": {
+    "current": {
+      "node_info": { "result": { "version": "0.9.1", "commit_hash": "8a0fc56-dirty 2026-09-07" } },
+      "list_channels_pending": { "result": { "channels": [
+        {
+          "channel_id": "<redacted-current-channel>",
+          "state": { "state_name": "NegotiatingFunding" },
+          "is_acceptor": true,
+          "is_one_way": false,
+          "pending_tlcs": [],
+          "failure_detail": null
+        }
+      ] } }
+    },
+    "old": {
+      "node_info": { "result": { "version": "0.9.0", "commit_hash": "unreported-by-node" } },
+      "list_channels_pending": { "result": { "channels": [
+        {
+          "channel_id": "<redacted-old-channel>",
+          "state": { "state_name": "NegotiatingFunding" },
+          "is_acceptor": false,
+          "is_one_way": false,
+          "pending_tlcs": [],
+          "failure_detail": null
+        }
+      ] } }
+    }
+  }
+}
