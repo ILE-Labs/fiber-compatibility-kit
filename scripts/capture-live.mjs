@@ -50,7 +50,10 @@ evidence.analysis = {
   old_channel_keys: oldKeys,
   sdk_declared_channel_keys: sdkChannelKeys.sort(),
   live_keys_missing_from_fiber_js: observedKeys.filter((key) => !sdkChannelKeys.includes(key)),
-  version_difference_detected: evidence.endpoints.current.responses.node_info.result?.version !== evidence.endpoints.old.responses.node_info.result?.version,
+  runtime_versions_differ: evidence.endpoints.current.responses.node_info.result?.version !== evidence.endpoints.old.responses.node_info.result?.version,
+  observable_channel_shape_difference: currentKeys.join('|') !== oldKeys.join('|'),
+  sdk_contract_gap_detected: observedKeys.some((key) => !sdkChannelKeys.includes(key)),
+  version_regression_claimed: false,
   evidence_status: "live_rpc_capture",
 };
 

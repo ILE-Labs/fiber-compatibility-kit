@@ -21,7 +21,7 @@ re-run internal unit tests as the deliverable.
 
 | Gate | Status | Evidence |
 |---|---|---|
-| Real compatibility difference or failure | Partial/pass for contract gap; not a version regression | `evidence/live/report.json` shows four live channel fields absent from the checked-in type. The 0.9.0 and 0.9.1 payload key sets were otherwise identical in this scenario. |
+| Real compatibility difference or failure | Partial/pass for contract gap; not a version regression | `evidence/live/report.json` records different runtime versions, identical observed channel shapes, and four live channel fields absent from the compared type surface. The authoritative SDK source revision is an external input to the capture and is not bundled in this repository. |
 | Useful to an existing consumer | Demonstrated at diagnostic level | The finding identifies fields a client cannot currently type or expose. Integration is not claimed. |
 | Not a duplicate of internal tests | Strong evidence, not final acceptance | The capture launches compiled binaries and drives JSON-RPC externally. |
 | Maintainer confirmation | Not met | No maintainer has reviewed or confirmed the artifact yet. |
@@ -62,7 +62,7 @@ A successful settlement requires funded, ready channels and remains optional.
 | Gate | Status | Evidence |
 |---|---|---|
 | Real second scenario | Passed for a negative path | `evidence/live/payment-scenario.public.json` records invoice creation on 0.9.0 and 0.9.1 and the same route-failure class for both attempts. |
-| Version difference | Not detected | The observed invoice and payment-failure behavior matched. |
+| Observable version behavior difference | Not detected | The observed invoice and payment-failure behavior matched. The runtime versions are recorded separately from behavioral difference. |
 | Consumer use case | Passed locally | `evidence/live/consumer-contract-report.json` uses four live channel fields through an adapter. |
 | Reproducible CI | Passed locally | `npm ci`, `npm test`, consumer validation, scenario classification, and sanitization pass. |
 | Public maintainer adoption | Open | The repository still needs to be published and reviewed by relevant maintainers. |

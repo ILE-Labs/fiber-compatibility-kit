@@ -34,7 +34,7 @@ def channel_keys(payload):
 current_keys = channel_keys(responses["current"]["list_channels_pending"])
 old_keys = channel_keys(responses["old"]["list_channels_pending"])
 if not SDK_CHANNEL_TS:
-    raise SystemExit("FIBER_JS_CHANNEL_TS must point to the checked-in fiber-js Channel type")
+    raise SystemExit("FIBER_JS_CHANNEL_TS must point to the pinned fiber-js Channel type used for this capture")
 sdk_source = SDK_CHANNEL_TS.read_text()
 channel_interface = sdk_source.split("interface Channel {", 1)[1].split("}\n", 1)[0]
 sdk_keys = sorted({line.strip().split("?", 1)[0].split(":", 1)[0] for line in channel_interface.splitlines() if ":" in line})
@@ -45,10 +45,13 @@ analysis = {
     "old_channel_keys": old_keys,
     "sdk_declared_channel_keys": sdk_keys,
     "live_keys_missing_from_fiber_js": [key for key in observed_keys if key not in sdk_keys],
-    "version_difference_detected": (
+    "runtime_versions_differ": (
         responses["current"]["node_info"].get("result", {}).get("version")
         != responses["old"]["node_info"].get("result", {}).get("version")
     ),
+    "observable_channel_shape_difference": current_keys != old_keys,
+    "sdk_contract_gap_detected": bool([key for key in observed_keys if key not in sdk_keys]),
+    "version_regression_claimed": False,
     "evidence_status": "live_rpc_capture",
 }
 OUTPUT.mkdir(parents=True, exist_ok=True)

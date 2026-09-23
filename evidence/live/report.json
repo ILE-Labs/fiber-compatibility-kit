@@ -68,7 +68,8 @@
     "is_one_way",
     "pending_tlcs"
   ],
-  "version_difference_detected": false,
+  "runtime_versions_differ": true,
+  "observable_channel_shape_difference": false,
   "sdk_contract_gap_detected": true,
   "version_regression_claimed": false,
   "evidence_status": "live_rpc_capture"

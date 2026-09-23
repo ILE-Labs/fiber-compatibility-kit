@@ -45,9 +45,6 @@
               },
               {
                 "hash_algorithm": "sha256"
-              },
-              {
-                "payee_public_key": "03032b99943822e721a651c5a5b9621043017daa9dc3ec81d83215fd2e25121187"
               }
             ]
           }
@@ -81,9 +78,6 @@
               },
               {
                 "hash_algorithm": "sha256"
-              },
-              {
-                "payee_public_key": "02a64b8993f33b2ebd37a4de1c9441f491291a4e779da8e519bcfb7c1f3f56c9c0"
               }
             ]
           }

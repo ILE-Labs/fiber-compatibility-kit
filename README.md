@@ -14,8 +14,9 @@ same `node_info` and pending-channel `list_channels` requests against versions
 0.9.0 and 0.9.1 on the same local development chain.
 
 The capture found that live channel responses contain `failure_detail`,
-`is_acceptor`, `is_one_way`, and `pending_tlcs`, while the checked-in `fiber-js`
-`Channel` type does not declare those fields. This is a consumer contract gap,
+`is_acceptor`, `is_one_way`, and `pending_tlcs`, while the compared `fiber-js`
+`Channel` type did not declare those fields. The exact SDK source revision must
+be supplied when refreshing a live capture. This is a consumer contract gap,
 not a claimed protocol regression.
 
 ## Run tests
@@ -63,9 +64,9 @@ both directions. The current local setup has no outbound liquidity, so both
 attempts are expected to return the same route failure. This is a real
 negative-path comparison, not a successful-settlement claim.
 
-The sanitizer preserves versions, commits, invoice schema, and error
-classification while removing local URLs, invoice addresses, signatures, and
-payment hashes.
+The sanitizer preserves runtime-reported versions, available commit metadata,
+invoice schema, and error classification while removing local URLs, invoice
+addresses, public-key attributes, signatures, and payment hashes.
 
 ## Reproduce the consumer evidence
 

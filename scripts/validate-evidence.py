@@ -5,15 +5,18 @@ import sys
 from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
-report = json.loads((root / "evidence/live/report.json").read_text())
-responses = json.loads((root / "evidence/live/responses.json").read_text())
+report_path = Path(os.environ.get("REPORT_FILE", root / "evidence/live/report.json"))
+evidence_path = Path(os.environ.get("EVIDENCE_FILE", root / "evidence/live/responses.json"))
+report = json.loads(report_path.read_text())
+responses = json.loads(evidence_path.read_text())
 expected_current = os.environ.get("EXPECTED_CURRENT_VERSION")
 expected_old = os.environ.get("EXPECTED_OLD_VERSION")
 if not expected_current or not expected_old:
     raise SystemExit("EXPECTED_CURRENT_VERSION and EXPECTED_OLD_VERSION must be set")
 
 assert report["evidence_status"] == "live_rpc_capture"
-assert report["version_difference_detected"] is False
+assert report["runtime_versions_differ"] is True
+assert report["observable_channel_shape_difference"] is False
 assert report["sdk_contract_gap_detected"] is True
 assert report["version_regression_claimed"] is False
 assert responses["endpoints"]["current"]["node_info"]["result"]["version"] == expected_current

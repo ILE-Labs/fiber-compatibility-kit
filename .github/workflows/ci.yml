@@ -19,8 +19,15 @@ jobs:
       - run: npm test
       - run: npm run validate:consumer
       - run: npm run classify:scenarios
+      - name: Validate committed live evidence
+        env:
+          EVIDENCE_FILE: evidence/live/responses.public.json
+          REPORT_FILE: evidence/live/report.json
+          EXPECTED_CURRENT_VERSION: 0.9.1
+          EXPECTED_OLD_VERSION: 0.9.0
+        run: python3 scripts/validate-evidence.py
       - name: Verify generated evidence is committed and honest
         run: |
-          node -e "const fs=require('fs'); const r=JSON.parse(fs.readFileSync('evidence/live/report.json')); if (r.version_difference_detected || r.version_regression_claimed) process.exit(1); if (!r.sdk_contract_gap_detected) process.exit(1);"
+          node -e "const fs=require('fs'); const r=JSON.parse(fs.readFileSync('evidence/live/report.json')); if (!r.runtime_versions_differ || r.observable_channel_shape_difference || r.version_regression_claimed) process.exit(1); if (!r.sdk_contract_gap_detected) process.exit(1);"
           node -e "const r=require('./evidence/live/scenario-matrix.json'); if (r.version_regression_claimed) process.exit(1); if (r.scenarios.length < 2) process.exit(1);"
           node -e "const r=require('./evidence/live/consumer-contract-report.json'); if (r.result !== 'CONSUMER_CONTRACT_SUPPORTED') process.exit(1);"

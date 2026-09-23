@@ -22,7 +22,9 @@ const publicCapture = (capture) => ({
       invoice: {
         currency: capture.new_invoice.result.invoice?.currency ?? null,
         amount: capture.new_invoice.result.invoice?.amount ?? null,
-        attrs: capture.new_invoice.result.invoice?.data?.attrs ?? []
+        attrs: (capture.new_invoice.result.invoice?.data?.attrs ?? []).filter(
+          (attr) => !Object.prototype.hasOwnProperty.call(attr, 'payee_public_key')
+        )
       }
     } : null
   }
